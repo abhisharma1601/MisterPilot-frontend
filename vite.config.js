@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    allowedHosts: ['misterpilot.online', 'www.misterpilot.online'],
   },
   preview: {
     host: '0.0.0.0',
