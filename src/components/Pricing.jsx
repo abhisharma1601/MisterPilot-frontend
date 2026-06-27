@@ -30,13 +30,13 @@ export default function Pricing() {
           <div className="label" style={{ margin: '0 auto 16px' }}>📊 Pricing</div>
           <h2 className="title">Pay for what you use.<br /><em>Nothing else.</em></h2>
           <p className="subtitle" style={{ margin: '0 auto', textAlign: 'center' }}>
-            No monthly seat fees. No per-user pricing. No surprises.
-            Top up your wallet and spend it at your own pace.
+            No subscriptions. No monthly fees. No credit card. Top up with ₹50 via UPI and
+            your balance never expires.
           </p>
         </div>
 
         {/* Hero pricing card */}
-        <div ref={cardRef} className={`fade-up ${cardVisible ? 'visible' : ''}`} style={{ marginBottom: 48 }}>
+        <div ref={cardRef} className={`fade-up pricing-hero-card ${cardVisible ? 'visible' : ''}`} style={{ marginBottom: 48 }}>
           <div style={{
             background: 'linear-gradient(135deg, rgba(127,255,110,0.07) 0%, var(--surface) 100%)',
             border: '1px solid rgba(127,255,110,0.2)',
@@ -44,7 +44,7 @@ export default function Pricing() {
             display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center',
           }}>
             <div>
-              <div style={{ fontSize: '3.5rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 8 }}>
+              <div style={{ fontSize: 'clamp(2.4rem, 5vw, 3.5rem)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 8 }}>
                 ₹0<span style={{ fontSize: '1.4rem', color: 'var(--text-muted)', fontWeight: 600 }}>/month</span>
               </div>
               <div style={{ fontSize: '1rem', color: 'var(--text-muted)', marginBottom: 28, lineHeight: 1.6 }}>
@@ -55,7 +55,7 @@ export default function Pricing() {
                 Create free account →
               </a>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <div className="pricing-billing-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               {BILLING.map(b => (
                 <div key={b.label} style={{ padding: '16px', background: 'rgba(0,0,0,0.3)', borderRadius: 10, border: '1px solid var(--border)' }}>
                   <div style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--accent)', marginBottom: 4 }}>{b.value}</div>
@@ -90,11 +90,18 @@ export default function Pricing() {
 
       <style>{`
         @media (max-width: 768px) {
-          #pricing .container > div:nth-child(2) > div {
+          .pricing-hero-card > div {
             grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            padding: 32px 24px !important;
           }
-          #pricing .container > div:nth-child(2) > div > div:last-child {
+          .pricing-billing-grid {
             grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .pricing-billing-grid {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

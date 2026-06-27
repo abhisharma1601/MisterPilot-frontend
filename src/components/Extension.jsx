@@ -5,7 +5,7 @@ const FEATURES = [
   { icon: '✅', title: 'Diff review before writes', desc: 'Every file edit shows as a diff card. You approve or reject every change before anything touches your disk.' },
   { icon: '🔍', title: 'Workspace search', desc: 'Powered by ripgrep — the AI can find any symbol, function, or pattern across your entire project instantly.' },
   { icon: '⌨️', title: 'Terminal execution', desc: 'Run shell commands, install packages, and start servers directly from the chat — no context switching needed.' },
-  { icon: '🔒', title: 'PII filtering', desc: 'Emails, phone numbers, and sensitive data are automatically stripped from every message before leaving your machine.' },
+  { icon: '🔒', title: 'PII filtering', desc: 'Emails, phone numbers, and sensitive data are automatically stripped server-side — processed in RAM, never stored.' },
   { icon: '🔌', title: 'MCP integrations', desc: 'Connect to GitHub, Playwright, PostgreSQL, or any MCP server. The AI gains access to external tools automatically.' },
 ]
 
@@ -37,14 +37,6 @@ export default function Extension() {
             className="btn btn-primary"
           >
             Install on VS Code
-          </a>
-          <a
-            href="https://platform.misterpilot.online/docs"
-            target="_blank" rel="noreferrer"
-            className="btn btn-ghost"
-            style={{ marginLeft: 12 }}
-          >
-            Read the docs
           </a>
         </div>
 

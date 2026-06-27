@@ -34,7 +34,6 @@ export default function Hero() {
     return () => clearInterval(timerRef.current)
   }, [])
 
-  // Build visible HTML respecting span tags, up to `chars` visible characters
   function buildHtml() {
     let visible = 0
     let result = ''
@@ -63,7 +62,7 @@ export default function Hero() {
         pointerEvents: 'none',
       }} />
 
-      <div style={{ maxWidth: 'var(--max-w)', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+      <div className="hero-grid" style={{ maxWidth: 'var(--max-w)', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
 
         {/* Left: text */}
         <div>
@@ -78,7 +77,7 @@ export default function Hero() {
           </h1>
 
           <p style={{ fontSize: '1.05rem', color: 'var(--text-muted)', lineHeight: 1.75, marginBottom: 36, maxWidth: 420 }}>
-            Drop-in OpenAI replacement. VS Code extension with full codebase context.
+            Drop-in replacement for the OpenAI API — powered by DeepSeek.
             Pay only for tokens you use — no subscriptions, no lock-in.
           </p>
 
@@ -99,46 +98,55 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Stats */}
           <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap' }}>
             {[
-              { val: '₹50', label: 'to start' },
-              { val: '2', label: 'models' },
-              { val: '0', label: 'subscriptions' },
-              { val: '∞', label: 'balance expiry' },
+              { val: '₹0', label: 'Monthly fee' },
+              { val: '₹50', label: 'Minimum top-up' },
+              { val: '100%', label: 'PII redacted' },
             ].map((s, i) => (
               <div key={i}>
-                <div style={{ fontSize: '1.4rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text)', lineHeight: 1 }}>{s.val}</div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>{s.label}</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.03em', color: 'var(--accent)', lineHeight: 1 }}>{s.val}</div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginTop: 4 }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right: code window */}
-        <div style={{ position: 'relative' }}>
-          <div style={{
-            position: 'absolute', inset: -1, borderRadius: 16,
-            background: 'radial-gradient(ellipse at 30% 40%, rgba(127,255,110,0.12) 0%, transparent 70%)',
-            filter: 'blur(20px)', zIndex: 0,
-          }} />
-          <div className="code-block" style={{ position: 'relative', zIndex: 1, borderColor: 'rgba(127,255,110,0.15)' }}>
-            <div className="code-block-bar">
-              <span className="dot dot-r" /><span className="dot dot-y" /><span className="dot dot-g" />
-              <span className="code-file">main.py</span>
-              <span style={{ marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--accent)', background: 'var(--accent-dim)', padding: '2px 8px', borderRadius: 4, border: '1px solid var(--accent-border)' }}>Python</span>
-            </div>
-            <pre style={{ padding: '20px 24px', fontFamily: 'var(--mono)', fontSize: '0.8rem', lineHeight: 1.75, minHeight: 320, color: '#c9d1d9', overflowX: 'auto' }}>
-              <code dangerouslySetInnerHTML={{ __html: buildHtml() + (chars < plain.length ? '<span class="cursor">▋</span>' : '') }} />
-            </pre>
+        {/* Right: code preview */}
+        <div className="code-block" style={{ maxWidth: '100%', overflow: 'hidden' }}>
+          <div className="code-block-bar">
+            <span className="dot dot-r" /><span className="dot dot-y" /><span className="dot dot-g" />
+            <span className="code-file">main.py</span>
           </div>
+          <pre>
+            <code dangerouslySetInnerHTML={{ __html: buildHtml() }} />
+            <span className="cursor">▊</span>
+          </pre>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          section > div { grid-template-columns: 1fr !important; }
-          section > div > div:last-child { display: none; }
+        @media (max-width: 768px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            text-align: center;
+          }
+          .hero-grid > div:first-child > p {
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .hero-grid > div:first-child > div:last-child {
+            justify-content: center;
+          }
+        }
+        @media (max-width: 640px) {
+          .hero-grid {
+            gap: 32px !important;
+          }
+          .hero-grid > div:first-child > div:last-child {
+            gap: 20px !important;
+          }
         }
       `}</style>
     </section>

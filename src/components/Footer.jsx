@@ -76,11 +76,17 @@ export default function Footer() {
         @media (max-width: 768px) {
           footer > div > div:first-child {
             grid-template-columns: 1fr 1fr !important;
+            gap: 36px !important;
           }
         }
         @media (max-width: 480px) {
           footer > div > div:first-child {
             grid-template-columns: 1fr !important;
+            gap: 28px !important;
+          }
+          footer > div > div:last-child {
+            flex-direction: column !important;
+            text-align: center;
           }
         }
       `}</style>

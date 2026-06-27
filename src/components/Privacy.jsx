@@ -53,16 +53,17 @@ export default function Privacy() {
         {/* Header */}
         <div ref={headRef} className={`fade-up ${headVisible ? 'visible' : ''}`} style={{ marginBottom: 56 }}>
           <div className="label">🛡 PII Redaction · v2 · Deobfuscation-hardened</div>
-          <h2 className="title">Your secrets never leave<br /><em>your machine</em></h2>
+          <h2 className="title">Your secrets are processed<br /><em>in RAM, never stored</em></h2>
           <p className="subtitle" style={{ maxWidth: 620 }}>
-            MisterPilot runs a two-pass redaction pipeline locally inside the VS Code extension.
-            Before any message reaches the model, 48+ patterns scan for secrets, then a second pass
-            dismantles 12 classes of obfuscation — HTML entities, Cyrillic homoglyphs, emoji injection, and more.
+            Every message is scanned server-side in RAM before reaching the model.
+            48+ patterns detect secrets in the first pass, then a second pass deobfuscates
+            smuggled tokens — HTML entities, URL encoding, C-style comments,
+            Cyrillic homoglyphs, emoji injection, and more.
           </p>
         </div>
 
         {/* Stats bar */}
-        <div ref={statsRef} className={`fade-up ${statsVisible ? 'visible' : ''}`} style={{
+        <div ref={statsRef} className={`fade-up privacy-stats ${statsVisible ? 'visible' : ''}`} style={{
           display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 64,
         }}>
           {STATS.map((s, i) => (
@@ -77,7 +78,7 @@ export default function Privacy() {
         {/* Two-pass architecture */}
         <div ref={archRef} className={`fade-up ${archVisible ? 'visible' : ''}`} style={{ marginBottom: 64 }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: 24, letterSpacing: '-0.02em' }}>Two-pass architecture</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 48px 1fr', gap: 0, alignItems: 'center' }}>
+          <div className="two-pass-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 48px 1fr', gap: 0, alignItems: 'center' }}>
 
             {/* Pass 1 */}
             <div className="card" style={{ borderColor: 'rgba(127,255,110,0.15)' }}>
@@ -86,7 +87,7 @@ export default function Privacy() {
                 <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Pattern scan</div>
               </div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {['48+ regex patterns scanned simultaneously', 'Overlaps resolved by priority (JWT 95 → Generic 70)', 'Replacements applied left-to-right', 'Deterministic HMAC-SHA256 pseudonymization'].map(t => (
+                {['48+ regex patterns scanned simultaneously', 'Overlaps resolved by priority (JWT 95 → Generic 70)', 'Replacements applied left-to-right', 'Matched secrets replaced with deterministic placeholders'].map(t => (
                   <li key={t} style={{ display: 'flex', gap: 8, fontSize: '0.83rem', color: 'var(--text-muted)' }}>
                     <span style={{ color: 'var(--accent)', flexShrink: 0 }}>✓</span> {t}
                   </li>
@@ -118,7 +119,7 @@ export default function Privacy() {
             <span style={{ color: 'var(--accent)', fontSize: '1rem' }}>↓</span>
             <div>
               <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--accent)' }}>Sanitized output</span>
-              <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginLeft: 12 }}>Deterministic placeholders like <code style={{ fontFamily: 'var(--mono)', fontSize: '0.78rem', color: 'var(--text)' }}>EMAIL_B921</code> — same value always maps to same placeholder. Restorable locally via <code style={{ fontFamily: 'var(--mono)', fontSize: '0.78rem', color: 'var(--text)' }}>pipeline.restore()</code></span>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginLeft: 12 }}>Deterministic placeholders like <code style={{ fontFamily: 'var(--mono)', fontSize: '0.78rem', color: 'var(--text)' }}>EMAIL_B921</code> — same value always maps to same placeholder. Restorable via <code style={{ fontFamily: 'var(--mono)', fontSize: '0.78rem', color: 'var(--text)' }}>pipeline.restore()</code></span>
             </div>
           </div>
         </div>
@@ -146,10 +147,10 @@ export default function Privacy() {
               <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 12 }}>Privacy guarantees</div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 9 }}>
                 {[
-                  ['🖥', 'Local-only', 'Scanning runs in the extension, on your machine'],
+                  ['⚡', 'Server-side', 'Scanning runs in RAM on our servers — nothing is written to disk'],
                   ['🔐', 'HMAC-SHA256', 'Placeholders use a secret key — originals can\'t be reversed'],
-                  ['🚫', 'Never logged', 'Replaced before any data leaves your machine'],
-                  ['✉️', 'No plaintext transit', 'The LLM never sees the raw secret'],
+                  ['🚫', 'Never stored', 'Secrets are redacted and discarded — zero disk persistence'],
+                  ['🔒', 'No plaintext transit', 'The LLM never sees the raw secret'],
                 ].map(([icon, title, desc]) => (
                   <li key={title} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                     <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>{icon}</span>
@@ -178,19 +179,19 @@ export default function Privacy() {
               </div>
             </div>
 
-            <div className="card" style={{ padding: '0', overflow: 'hidden' }}>
-              <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--border)', display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: 12 }}>
-                <div style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-dim)' }}>Technique</div>
-                <div style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-dim)' }}>Input sample</div>
-                <div style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-dim)' }}>Caught as</div>
+            <div className="card" style={{ padding: '20px' }}>
+              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 16 }}>Bypass techniques caught</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {BYPASS_HIGHLIGHTS.map(row => (
+                  <div key={row.technique} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', borderRadius: 7, background: 'var(--surface-2)', border: '1px solid var(--border)', flexWrap: 'wrap', gap: 8 }}>
+                    <div>
+                      <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text)' }}>{row.technique}</div>
+                      <code style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', color: 'var(--text-dim)' }}>{row.example}</code>
+                    </div>
+                    <span style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--accent)', background: 'var(--accent-dim)', border: '1px solid var(--accent-border)', padding: '2px 7px', borderRadius: 4, fontFamily: 'var(--mono)', whiteSpace: 'nowrap' }}>✓ {row.result}</span>
+                  </div>
+                ))}
               </div>
-              {BYPASS_HIGHLIGHTS.map((row, i) => (
-                <div key={row.technique} style={{ padding: '10px 16px', borderBottom: i < BYPASS_HIGHLIGHTS.length - 1 ? '1px solid var(--border)' : 'none', display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: 12, alignItems: 'center' }}>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{row.technique}</div>
-                  <code style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', color: 'var(--text-dim)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.example}</code>
-                  <span style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--accent)', background: 'var(--accent-dim)', border: '1px solid var(--accent-border)', padding: '2px 7px', borderRadius: 4, fontFamily: 'var(--mono)', whiteSpace: 'nowrap' }}>✓ {row.result}</span>
-                </div>
-              ))}
             </div>
           </div>
         </div>
@@ -199,10 +200,20 @@ export default function Privacy() {
 
       <style>{`
         @media (max-width: 900px) {
-          #privacy-stats { grid-template-columns: repeat(2, 1fr) !important; }
+          .privacy-stats { grid-template-columns: repeat(2, 1fr) !important; }
+          .two-pass-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .two-pass-grid > div:nth-child(2) { transform: rotate(90deg); padding: 8px 0; }
         }
-        @media (max-width: 600px) {
-          #privacy-stats { grid-template-columns: 1fr 1fr !important; }
+        @media (max-width: 640px) {
+          .privacy-stats { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .privacy-stats { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 768px) {
+          section[style*="linear-gradient"] > div > div:last-child > div:first-child > div {
+            grid-template-columns: 1fr !important;
+          }
         }
       `}</style>
     </section>
