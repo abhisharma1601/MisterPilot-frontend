@@ -49,7 +49,7 @@ stream = client.chat.completions.<span class="c-fn">create</span>(
     label: 'cURL',
     file: 'request.sh',
     code: `curl <span class="c-url">https://engine.misterpilot.online/v1/chat/completions</span> \\
-  -H <span class="c-str">"Authorization: Bearer your_misterpilot_key"</span> \\
+  -H <span class="c-str">"Authorization: Bearer &lt;key&gt;"</span> \\
   -H <span class="c-str">"Content-Type: application/json"</span> \\
   -d <span class="c-str">'{
     "model": "deepseek-v4-pro",
@@ -90,8 +90,8 @@ export default function ApiSection() {
           <div className="label">⚡ API Engine</div>
           <h2 className="title">Drop-in OpenAI<br /><em>replacement</em></h2>
           <p className="subtitle">
-            Change two lines. That's it. Point any OpenAI SDK at our endpoint and your existing code
-            routes to DeepSeek models with automatic PII protection on every request.
+            Change two lines. That's it. Point any OpenAI SDK at our endpoint and keep
+            your existing code — PII filtering and pay-as-you-go billing included.
           </p>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 8, padding: '12px 18px', marginBottom: 16 }}>
             <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Endpoint</span>
@@ -124,14 +124,14 @@ export default function ApiSection() {
               <span className="dot dot-r" /><span className="dot dot-y" /><span className="dot dot-g" />
               <span className="code-file">{tab.file}</span>
             </div>
-            <pre style={{ padding: '20px 24px', fontFamily: 'var(--mono)', fontSize: '0.82rem', lineHeight: 1.75, color: '#c9d1d9', overflowX: 'auto' }}>
+            <pre>
               <code dangerouslySetInnerHTML={{ __html: tab.code }} />
             </pre>
           </div>
         </div>
 
         {/* Models + Auth side by side */}
-        <div ref={modelsRef} className={`fade-up ${modelsVisible ? 'visible' : ''}`} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+        <div ref={modelsRef} className={`fade-up models-auth-grid ${modelsVisible ? 'visible' : ''}`} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
 
           {/* Models */}
           <div className="card">
@@ -151,26 +151,39 @@ export default function ApiSection() {
             ))}
           </div>
 
-          {/* Auth */}
+          {/* Auth Methods */}
           <div className="card">
-            <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 20 }}>Authentication (priority order)</div>
-            {AUTH_METHODS.map(a => (
-              <div key={a.priority} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ width: 24, height: 24, borderRadius: 6, background: 'var(--surface-2)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-dim)', flexShrink: 0 }}>{a.priority}</div>
-                <div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: 4 }}>{a.method}</div>
-                  <code style={{ fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--text-dim)' }}>{a.example}</code>
+            <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 20 }}>Authentication (Priority Order)</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {AUTH_METHODS.map(a => (
+                <div key={a.priority} style={{
+                  padding: '14px 16px', borderRadius: 8,
+                  background: 'var(--surface-2)', border: '1px solid var(--border)',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                    <span style={{
+                      width: 22, height: 22, borderRadius: 6, flexShrink: 0,
+                      background: 'rgba(127,255,110,0.1)', border: '1px solid rgba(127,255,110,0.25)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '0.6rem', fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--mono)',
+                    }}>{a.priority}</span>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 600 }}>{a.method}</span>
+                  </div>
+                  <code style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.73rem', color: 'var(--text-dim)', padding: '6px 10px', background: '#0a0a0a', borderRadius: 5, overflowX: 'auto', whiteSpace: 'nowrap' }}>{a.example}</code>
                 </div>
-              </div>
-            ))}
-            <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: 'var(--accent-dim)', border: '1px solid var(--accent-border)' }}>
-              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-                Get your API key at <a href="https://platform.misterpilot.online" target="_blank" rel="noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>platform.misterpilot.online</a>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .models-auth-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

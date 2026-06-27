@@ -32,7 +32,7 @@ const INTEGRATIONS = [
     config: `<span class="c-str">"postgres"</span>: {
   <span class="c-key">"command"</span>: <span class="c-str">"npx"</span>,
   <span class="c-key">"args"</span>: [<span class="c-str">"-y"</span>, <span class="c-str">"@modelcontextprotocol/server-postgres"</span>,
-    <span class="c-str">"postgresql://user:pass@localhost/mydb"</span>]
+    <span class="c-str">"postgresql://..."</span>]
 }`,
     prompt: '"Write a migration to add email_verified to users table"',
   },
@@ -68,13 +68,13 @@ export default function MCPSection() {
           </p>
         </div>
 
-        <div ref={bodyRef} className={`fade-up ${bodyVisible ? 'visible' : ''}`} style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: 20, alignItems: 'start' }}>
+        <div ref={bodyRef} className={`fade-up mcp-body ${bodyVisible ? 'visible' : ''}`} style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: 20, alignItems: 'start' }}>
 
           {/* Left: integration list */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {INTEGRATIONS.map((intg, i) => (
+          <div className="mcp-list" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {INTEGRATIONS.map((integration, i) => (
               <button
-                key={intg.name}
+                key={integration.name}
                 onClick={() => setActive(i)}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 12,
@@ -84,10 +84,10 @@ export default function MCPSection() {
                   transition: 'all 0.15s', textAlign: 'left',
                 }}
               >
-                <span style={{ fontSize: '1.2rem' }}>{intg.icon}</span>
+                <span style={{ fontSize: '1.2rem' }}>{integration.icon}</span>
                 <div>
-                  <div style={{ fontSize: '0.88rem', fontWeight: 600, color: active === i ? 'var(--text)' : 'var(--text-muted)' }}>{intg.name}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: 2, lineHeight: 1.4 }}>{intg.desc.slice(0, 40)}…</div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 600, color: active === i ? 'var(--text)' : 'var(--text-muted)' }}>{integration.name}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: 2, lineHeight: 1.4 }}>{integration.desc.slice(0, 40)}…</div>
                 </div>
               </button>
             ))}
@@ -116,7 +116,7 @@ export default function MCPSection() {
                 <span className="dot dot-r" /><span className="dot dot-y" /><span className="dot dot-g" />
                 <span className="code-file">settings.json → misterpilot.mcpServers</span>
               </div>
-              <pre style={{ padding: '16px 20px', fontFamily: 'var(--mono)', fontSize: '0.8rem', lineHeight: 1.7, color: '#c9d1d9', overflowX: 'auto' }}>
+              <pre>
                 <code dangerouslySetInnerHTML={{ __html: intg.config }} />
               </pre>
             </div>
@@ -134,8 +134,39 @@ export default function MCPSection() {
 
       <style>{`
         @media (max-width: 768px) {
-          #mcp .container > div:last-child {
+          .mcp-body {
             grid-template-columns: 1fr !important;
+          }
+          .mcp-list {
+            flex-direction: row !important;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            gap: 4px !important;
+            padding-bottom: 8px;
+          }
+          .mcp-list button {
+            flex-shrink: 0;
+            font-size: 0.78rem !important;
+            padding: 10px 12px !important;
+            border-left: none !important;
+            border-bottom: 2px solid transparent;
+            border-radius: 0 !important;
+          }
+          .mcp-list button > div:last-child {
+            display: none;
+          }
+          .mcp-list > div:last-child {
+            display: none;
+          }
+        }
+        @media (max-width: 480px) {
+          .mcp-list button {
+            padding: 8px 10px !important;
+            font-size: 0.7rem !important;
+            gap: 6px !important;
+          }
+          .mcp-list button span {
+            font-size: 1rem !important;
           }
         }
       `}</style>

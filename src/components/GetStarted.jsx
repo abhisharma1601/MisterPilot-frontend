@@ -87,6 +87,12 @@ export default function GetStarted() {
           })}
         </div>
 
+      <style>{`
+        @media (max-width: 640px) {
+          .grid-2 { gap: 12px; }
+        }
+      `}</style>
+
         {/* CTA banner */}
         {(() => {
           const [ref, vis] = useInView()
@@ -107,7 +113,6 @@ export default function GetStarted() {
               </p>
               <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
                 <a href="https://platform.misterpilot.online" target="_blank" rel="noreferrer" className="btn btn-primary">Create free account</a>
-                <a href="https://platform.misterpilot.online/docs" target="_blank" rel="noreferrer" className="btn btn-secondary">Read the docs</a>
               </div>
             </div>
           )
