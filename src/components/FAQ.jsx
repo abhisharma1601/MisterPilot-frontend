@@ -54,7 +54,7 @@ export default function FAQ() {
         >
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 24 }}>
             <a href="/docs/" className="btn btn-secondary btn-sm">Read the docs →</a>
-            <a href="mailto:chiefmr12@gmail.com" className="btn btn-ghost btn-sm">Contact support</a>
+            <a href="mailto:info@misterpilot.online" className="btn btn-ghost btn-sm">Contact support</a>
           </div>
         </SectionHead>
 

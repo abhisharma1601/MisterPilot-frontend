@@ -17,7 +17,7 @@ const LINKS = {
     { label: 'FAQ', href: '/#faq' },
   ],
   Company: [
-    { label: 'Support', href: 'mailto:chiefmr12@gmail.com' },
+    { label: 'Support', href: 'mailto:info@misterpilot.online' },
     { label: 'GitHub', href: '#' },
   ],
 }

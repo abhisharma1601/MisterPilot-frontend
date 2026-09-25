@@ -710,7 +710,7 @@ export const SECTIONS = [
         <h3>MCP tools don't appear</h3>
         <p>Make sure the server's command (<code>npx</code>, <code>uvx</code>…) is on your PATH, then reopen the chat panel. Connection errors are logged to <strong>Output → Log (Extension Host)</strong>.</p>
         <h3>Still stuck?</h3>
-        <p>Email <a href="mailto:chiefmr12@gmail.com">support</a> with the error message and your extension version.</p>
+        <p>Email <a href="mailto:info@misterpilot.online">support</a> with the error message and your extension version.</p>
       </>
     ),
   },
