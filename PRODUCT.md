@@ -139,7 +139,7 @@ The control centre for billing, usage, and API key management.
 | | |
 |---|---|
 | **Model** | Pay As You Go — no monthly subscription |
-| **Minimum top-up** | ₹50 |
+| **Minimum top-up** | ₹99 |
 | **Payment** | UPI wallet |
 | **Balance expiry** | Never |
 | **Credit card required** | No |

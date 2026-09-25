@@ -23,10 +23,13 @@ export default function Navbar() {
   const closeMenu = () => setMenuOpen(false)
 
   const navLinks = [
-    { label: 'Extension', href: '#extension' },
-    { label: 'API', href: '#api' },
-    { label: 'MCP', href: '#mcp' },
-    { label: 'Pricing', href: '#pricing' },
+    { label: 'Auto', href: '/#auto' },
+    { label: 'Models', href: '/#models' },
+    { label: 'Features', href: '/#extension' },
+    { label: 'MCP', href: '/#mcp' },
+    { label: 'Pricing', href: '/#pricing' },
+    { label: 'FAQ', href: '/#faq' },
+    { label: 'Docs', href: '/docs/' },
   ]
 
   return (
@@ -42,7 +45,7 @@ export default function Navbar() {
         transition: 'background 0.25s, border-color 0.25s, backdrop-filter 0.25s',
       }}>
         {/* Logo */}
-        <a href="#" onClick={closeMenu} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <a href="/" onClick={closeMenu} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
           <img src="/icon.png" alt="MisterPilot" style={{ width: 28, height: 28, borderRadius: 7, display: 'block' }} />
           <span style={{ fontSize: '0.95rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text)' }}>
             Mister<span style={{ color: 'var(--accent)' }}>Pilot</span>
@@ -90,7 +93,7 @@ export default function Navbar() {
             target="_blank" rel="noreferrer"
             className="btn btn-primary btn-sm"
           >
-            Get Extension
+            Install free
           </a>
         </div>
 

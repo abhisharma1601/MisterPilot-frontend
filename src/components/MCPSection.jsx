@@ -60,11 +60,11 @@ export default function MCPSection() {
       <div className="container">
 
         <div ref={headRef} className={`fade-up ${headVisible ? 'visible' : ''}`} style={{ marginBottom: 56 }}>
-          <div className="label">🔌 MCP Integrations</div>
-          <h2 className="title">Connect the AI to<br /><em>anything</em></h2>
+          <div className="label">🔌 MCP Support</div>
+          <h2 className="title">Connect AI to<br /><em>everything</em></h2>
           <p className="subtitle">
-            MCP (Model Context Protocol) lets MisterPilot talk to external tools — GitHub, databases, browsers,
-            or your own internal services. Configure once, use everywhere.
+            The Model Context Protocol connects MisterPilot to external tools, databases, APIs, browsers and
+            your own internal services. Extensible workflows today, future-ready architecture for tomorrow.
           </p>
         </div>
 

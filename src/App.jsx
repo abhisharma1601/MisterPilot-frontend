@@ -1,11 +1,17 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Products from './components/Products'
+import TrustBar from './components/TrustBar'
+import AutoSection from './components/AutoSection'
+import WhyAuto from './components/WhyAuto'
+import Models from './components/Models'
 import Extension from './components/Extension'
-import ApiSection from './components/ApiSection'
+import AgentSection from './components/AgentSection'
 import MCPSection from './components/MCPSection'
+import Reliability from './components/Reliability'
 import Privacy from './components/Privacy'
+import ApiSection from './components/ApiSection'
 import Pricing from './components/Pricing'
+import FAQ from './components/FAQ'
 import GetStarted from './components/GetStarted'
 import Footer from './components/Footer'
 
@@ -15,12 +21,18 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Products />
+        <TrustBar />
+        <AutoSection />
+        <WhyAuto />
+        <Models />
         <Extension />
-        <ApiSection />
+        <AgentSection />
         <MCPSection />
+        <Reliability />
         <Privacy />
+        <ApiSection />
         <Pricing />
+        <FAQ />
         <GetStarted />
       </main>
       <Footer />

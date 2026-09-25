@@ -1,10 +1,20 @@
-import { useInView } from '../hooks/useInView'
+import Reveal, { SectionHead } from './Reveal'
 
 const BILLING = [
-  { icon: '₹', label: 'Minimum top-up', value: '₹50', sub: 'Start with as little as ₹50' },
-  { icon: '📱', label: 'Payment method', value: 'UPI', sub: 'No credit card required' },
-  { icon: '♾️', label: 'Balance expiry', value: 'Never', sub: 'Your credit carries forward' },
-  { icon: '0', label: 'Monthly fee', value: '₹0', sub: 'No subscription, ever' },
+  { label: 'Minimum top-up', value: '₹99', sub: 'Start with as little as ₹99' },
+  { label: 'Payment method', value: 'UPI', sub: 'No credit card required' },
+  { label: 'Balance expiry', value: 'Never', sub: 'Your credit carries forward' },
+  { label: 'Monthly fee', value: '₹0', sub: 'No subscription, ever' },
+]
+
+const COMPARE = [
+  ['Monthly fee', '₹0', 'Fixed monthly subscription'],
+  ['How you pay', 'Per token you actually use', 'Flat fee, with usage limits'],
+  ['Minimum spend', '₹99 top-up that never expires', 'A full month, upfront'],
+  ['Payment method', 'UPI — no credit card', 'Usually a credit card'],
+  ['Bring your own API keys', 'Yes — OpenAI, Claude, DeepSeek', 'Varies by product and plan'],
+  ['Automatic model routing', 'Yes — MisterPilot Auto', 'Varies'],
+  ['Editor', 'The VS Code you already use', 'Often a separate or forked editor'],
 ]
 
 const DASHBOARD = [
@@ -17,26 +27,18 @@ const DASHBOARD = [
 ]
 
 export default function Pricing() {
-  const [headRef, headVisible] = useInView()
-  const [cardRef, cardVisible] = useInView()
-  const [dashRef, dashVisible] = useInView()
-
   return (
     <section className="section" id="pricing" style={{ borderTop: '1px solid var(--border)' }}>
       <div className="container">
-
-        {/* Header */}
-        <div ref={headRef} className={`fade-up ${headVisible ? 'visible' : ''}`} style={{ textAlign: 'center', marginBottom: 56 }}>
-          <div className="label" style={{ margin: '0 auto 16px' }}>📊 Pricing</div>
-          <h2 className="title">Pay for what you use.<br /><em>Nothing else.</em></h2>
-          <p className="subtitle" style={{ margin: '0 auto', textAlign: 'center' }}>
-            No subscriptions. No monthly fees. No credit card. Top up with ₹50 via UPI and
-            your balance never expires.
-          </p>
-        </div>
+        <SectionHead
+          center
+          label="📊 Pricing"
+          title={<>Pay for what you use.<br /><em>Nothing else.</em></>}
+          subtitle="No subscriptions. No seats. No credit card. Top up with ₹99 via UPI — or bring your own keys — and let Auto keep your costs down."
+        />
 
         {/* Hero pricing card */}
-        <div ref={cardRef} className={`fade-up pricing-hero-card ${cardVisible ? 'visible' : ''}`} style={{ marginBottom: 48 }}>
+        <Reveal className="pricing-hero-card" style={{ marginBottom: 64 }}>
           <div style={{
             background: 'linear-gradient(135deg, rgba(127,255,110,0.07) 0%, var(--surface) 100%)',
             border: '1px solid rgba(127,255,110,0.2)',
@@ -44,13 +46,19 @@ export default function Pricing() {
             display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center',
           }}>
             <div>
+              <div className="eyebrow" style={{ color: 'var(--accent)', marginBottom: 10 }}>Pay as you go</div>
               <div style={{ fontSize: 'clamp(2.4rem, 5vw, 3.5rem)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 8 }}>
                 ₹0<span style={{ fontSize: '1.4rem', color: 'var(--text-muted)', fontWeight: 600 }}>/month</span>
               </div>
-              <div style={{ fontSize: '1rem', color: 'var(--text-muted)', marginBottom: 28, lineHeight: 1.6 }}>
-                Pay only for actual tokens consumed.<br />
-                Start with ₹50. Use it whenever you want.
+              <div style={{ fontSize: '1rem', color: 'var(--text-muted)', marginBottom: 24, lineHeight: 1.6 }}>
+                Pay only for tokens consumed — and because Auto sends easy
+                requests to low-cost models, each rupee goes further.
               </div>
+              <ul className="check-list" style={{ marginBottom: 28 }}>
+                <li>All providers and MisterPilot Auto included</li>
+                <li>VS Code extension and API access</li>
+                <li>Full usage dashboard</li>
+              </ul>
               <a href="https://platform.misterpilot.online" target="_blank" rel="noreferrer" className="btn btn-primary">
                 Create free account →
               </a>
@@ -65,26 +73,47 @@ export default function Pricing() {
               ))}
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        {/* Dashboard section */}
-        <div ref={dashRef} className={`fade-up ${dashVisible ? 'visible' : ''}`}>
-          <div style={{ textAlign: 'center', marginBottom: 32 }}>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 8 }}>Everything in the dashboard</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Full visibility into usage, costs, and keys — all in one place.</p>
-          </div>
-          <div className="grid-3">
-            {DASHBOARD.map((d, i) => {
-              const [ref, vis] = useInView()
-              return (
-                <div key={d.title} ref={ref} className={`card fade-up ${vis ? 'visible' : ''}`} style={{ transitionDelay: `${i * 0.07}s` }}>
-                  <span className="card-icon">{d.icon}</span>
-                  <div className="card-title">{d.title}</div>
-                  <div className="card-text">{d.desc}</div>
-                </div>
-              )
-            })}
-          </div>
+        {/* Comparison */}
+        <Reveal style={{ textAlign: 'center', marginBottom: 28 }}>
+          <h3 style={{ fontSize: '1.3rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 8 }}>A cheaper way to code with frontier AI</h3>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>How MisterPilot compares with typical subscription-based AI coding tools.</p>
+        </Reveal>
+        <Reveal className="cmp-wrap" style={{ marginBottom: 80 }}>
+          <table className="cmp">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col" className="hl">MisterPilot</th>
+                <th scope="col">Typical AI IDE subscription</th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARE.map(([k, mp, other]) => (
+                <tr key={k}>
+                  <th scope="row">{k}</th>
+                  <td className="hl yes">{mp}</td>
+                  <td>{other}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Reveal>
+
+        {/* Dashboard */}
+        <Reveal style={{ textAlign: 'center', marginBottom: 32 }}>
+          <h3 style={{ fontSize: '1.3rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 8 }}>Everything in the dashboard</h3>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Full visibility into usage, costs, and keys — all in one place.</p>
+        </Reveal>
+        <div className="grid-3">
+          {DASHBOARD.map((d, i) => (
+            <Reveal key={d.title} delay={i * 0.07} className="card">
+              <span className="card-icon">{d.icon}</span>
+              <div className="card-title">{d.title}</div>
+              <div className="card-text">{d.desc}</div>
+            </Reveal>
+          ))}
         </div>
       </div>
 
@@ -95,14 +124,9 @@ export default function Pricing() {
             gap: 32px !important;
             padding: 32px 24px !important;
           }
-          .pricing-billing-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
         }
         @media (max-width: 480px) {
-          .pricing-billing-grid {
-            grid-template-columns: 1fr !important;
-          }
+          .pricing-billing-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

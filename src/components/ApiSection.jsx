@@ -34,7 +34,7 @@ client = <span class="c-fn">OpenAI</span>(
 )
 
 stream = client.chat.completions.<span class="c-fn">create</span>(
-    model=<span class="c-str">"deepseek-v4-flash"</span>,
+    model=<span class="c-str">"deepseek-flash"</span>,
     messages=[{<span class="c-key">"role"</span>: <span class="c-str">"user"</span>, <span class="c-key">"content"</span>: <span class="c-str">"Explain recursion"</span>}],
     stream=<span class="c-kw">True</span>,
 )
@@ -63,14 +63,14 @@ stream = client.chat.completions.<span class="c-fn">create</span>(
 ]
 
 const MODELS = [
-  { id: 'deepseek-v4-pro', badge: 'Default', desc: 'Highest capability. Best for complex reasoning, code generation, and architecture decisions.', accent: true },
-  { id: 'deepseek-v4-flash', badge: 'Fast', desc: 'Faster responses at lower cost. Great for autocomplete, quick Q&A, and high-throughput use cases.', accent: false },
+  { id: 'misterpilot-auto', badge: 'Auto', desc: 'Scores each request and routes it to the best-fit model across OpenAI, Claude and DeepSeek. MisterPilot keys only.', accent: true },
+  { id: 'deepseek-v4-pro', badge: 'Default', desc: 'Strong everyday all-rounder for code generation and reasoning at a low price.', accent: false },
+  { id: 'deepseek-flash', badge: 'Fast', desc: 'Faster responses at lower cost. Great for autocomplete, quick Q&A, and high-throughput use cases.', accent: false },
 ]
 
 const AUTH_METHODS = [
   { priority: '1', method: 'Authorization header', example: 'Authorization: Bearer <key>' },
   { priority: '2', method: 'JSON body field', example: '"apikey": "<key>"' },
-  { priority: '3', method: 'Config file', example: 'Default key in config.yaml' },
 ]
 
 export default function ApiSection() {
@@ -96,6 +96,9 @@ export default function ApiSection() {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 8, padding: '12px 18px', marginBottom: 16 }}>
             <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Endpoint</span>
             <code style={{ fontFamily: 'var(--mono)', fontSize: '0.85rem', color: 'var(--accent)' }}>https://engine.misterpilot.online/v1</code>
+          </div>
+          <div>
+            <a href="/docs/#api-overview" className="btn btn-ghost btn-sm">Full API reference →</a>
           </div>
         </div>
 
@@ -135,7 +138,7 @@ export default function ApiSection() {
 
           {/* Models */}
           <div className="card">
-            <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 20 }}>Supported Models</div>
+            <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 20 }}>Popular Models</div>
             {MODELS.map(m => (
               <div key={m.id} style={{
                 padding: '16px', borderRadius: 8, marginBottom: 10,

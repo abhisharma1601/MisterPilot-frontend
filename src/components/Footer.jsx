@@ -1,15 +1,20 @@
 const LINKS = {
   Product: [
     { label: 'VS Code Extension', href: 'https://marketplace.visualstudio.com/items?itemName=MisterPilot.misterpilot', external: true },
-    { label: 'API Engine', href: '#api' },
+    { label: 'MisterPilot Auto', href: '/#auto' },
+    { label: 'Models & BYOK', href: '/#models' },
+    { label: 'API Engine', href: '/#api' },
     { label: 'API Playground', href: 'https://engine.misterpilot.online/playground', external: true },
     { label: 'Platform Dashboard', href: 'https://platform.misterpilot.online', external: true },
   ],
   Developers: [
-    { label: 'Documentation', href: 'https://platform.misterpilot.online/docs', external: true },
-    { label: 'API Reference', href: 'https://platform.misterpilot.online/docs', external: true },
-    { label: 'MCP Guide', href: '#mcp' },
-    { label: 'Pricing', href: '#pricing' },
+    { label: 'Documentation', href: '/docs/' },
+    { label: 'Copilot Chat Setup', href: '/docs/#copilot-chat' },
+    { label: 'API Reference', href: '/docs/#api-overview' },
+    { label: 'Models', href: '/docs/#models' },
+    { label: 'MCP Guide', href: '/docs/#mcp' },
+    { label: 'Pricing', href: '/#pricing' },
+    { label: 'FAQ', href: '/#faq' },
   ],
   Company: [
     { label: 'Support', href: 'mailto:chiefmr12@gmail.com' },
@@ -30,10 +35,10 @@ export default function Footer() {
               <span style={{ fontSize: '0.95rem', fontWeight: 800, letterSpacing: '-0.02em' }}>Mister<span style={{ color: 'var(--accent)' }}>Pilot</span></span>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.7, maxWidth: 260, marginBottom: 20 }}>
-              AI coding assistant built for developers. OpenAI-compatible API, VS Code extension, and pay-as-you-go pricing.
+              The AI coding platform that picks the right model for every task. OpenAI, Claude and DeepSeek in VS Code — bring your own keys or pay as you go.
             </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {['OpenAI-Compatible', 'DeepSeek Powered', 'Privacy-First'].map(tag => (
+              {['Auto Model Routing', 'Multi-Provider', 'BYOK', 'Privacy-First'].map(tag => (
                 <span key={tag} style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--text-dim)', background: 'var(--surface)', border: '1px solid var(--border)', padding: '3px 8px', borderRadius: 4, letterSpacing: '0.04em' }}>{tag}</span>
               ))}
             </div>
